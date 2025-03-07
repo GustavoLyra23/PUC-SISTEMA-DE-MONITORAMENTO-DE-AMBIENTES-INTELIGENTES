@@ -1,0 +1,36 @@
+classDiagram
+    class ArduinoSpringApplication {
+        <<SpringBootApplication>>
+        +main(String[] args)
+        +run(String... args)
+        -TimeSeries temperatureSeries
+        -TimeSeries humiditySeries
+        -TimeSeries lightSeries
+        -TimeSeriesCollection dataset
+    }
+
+    class ArduinoListener {
+        <<RestController>>
+        +post(ArduinoData arduinoData)
+        +get(): List~ArduinoData~
+    }
+
+    class DB {
+        -ConcurrentHashMap<Integer, ArduinoData> db
+        -AtomicInteger counter
+        +save(ArduinoData data)
+        +get(Integer key): ArduinoData
+        +getAll(): List~ArduinoData~
+        +clear()
+    }
+
+    class ArduinoData {
+        +Double temperature
+        +Double humidity
+        +Double light
+    }
+
+    ArduinoListener --> ArduinoSpringApplication: atualiza séries de dados
+    ArduinoListener --> ArduinoData: recebe dados via JSON
+    ArduinoListener --> DB: salva dados
+    DB --> ArduinoData: armazena dados

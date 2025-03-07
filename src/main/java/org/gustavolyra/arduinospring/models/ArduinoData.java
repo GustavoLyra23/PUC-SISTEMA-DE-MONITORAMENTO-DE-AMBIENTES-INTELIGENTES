@@ -11,8 +11,8 @@ import java.util.logging.Logger;
  * @param humidity
  * @param light
  */
-public record ArduinoData(@JsonAlias(value = "Temperatura") Float temperature, @JsonAlias(value = "Umidade do Solo") Float humidity,
-                          @JsonAlias(value = "Luminosidade") Float light) {
+public record ArduinoData(@JsonAlias(value = "Temperatura") Double temperature, @JsonAlias(value = "Umidade do Solo") Double humidity,
+                          @JsonAlias(value = "Luminosidade") Double light) {
     private static final Logger logger = Logger.getLogger(ArduinoData.class.getName());
 
     public ArduinoData {
